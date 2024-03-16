@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+
+<form style="width: 22rem;" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+            <div class="container">
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.employee.errors }}
+                        <label class="form-label" for="{{ form.emp_id.id_for_label }}">Employee: </label>
+                        {{ form.employee }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.emp_id.errors }}
+                        <label class="form-label" for="{{ form.emp_id.id_for_label }}">Employee ID: </label>
+                        {{ form.emp_id }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.first_name.errors }}
+                        <label class="form-label" for="{{ form.first_name.id_for_label }}">First Name: </label>
+                        {{ form.first_name }}
+                    </div>
+                    <hr>
+            
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.last_name.errors }}
+                        <label class="form-label" for="{{ form.last_name.id_for_label }}">Last Name: </label>
+                        {{ form.last_name }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.date_of_birth.errors }}
+                        <label class="form-label" for="{{ form.date_of_birth.id_for_label }}">Date of Birth: </label>
+                        {{ form.date_of_birth }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.department.errors }}
+                        <label class="form-label" for="{{ form.department.id_for_label }}">Department: </label>
+                        {{ form.department }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.mobile_number.errors }}
+                        <label class="form-label" for="{{ form.mobile_number.id_for_label }}">Mobile Number: </label>
+                        {{ form.mobile_number }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.email.errors }}
+                        <label class="form-label" for="{{ form.email.id_for_label }}">Email: </label>
+                        {{ form.email }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.gender.errors }}
+                        <label class="form-label" for="{{ form.gender.id_for_label }}">Gender: </label>
+                        {{ form.gender }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.designation.errors }}
+                        <label class="form-label" for="{{ form.designation.id_for_label }}">Designation: </label>
+                        {{ form.designation }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.salary.errors }}
+                        <label class="form-label" for="{{ form.salary.id_for_label }}">Salary: </label>
+                        {{ form.salary }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.address.errors }}
+                        <label class="form-label" for="{{ form.address.id_for_label }}">Address: </label>
+                        {{ form.address }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.is_active.errors }}
+                        <label class="form-label" for="{{ form.is_active.id_for_label }}">Status: </label>
+                        {{ form.is_active }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.leaving_date.errors }}
+                        <label class="form-label" for="{{ form.leaving_date.id_for_label }}">Resignation Date: </label>
+                        {{ form.leaving_date }}
+                    </div>
+                    <hr>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        {{ form.profile_pic.errors }}
+                            <label class="form-label" for="{{ form.profile_pic.id_for_label }}">Profile Picture: </label>
+                        {{ form.profile_pic }}
+                    </div>
+                    <hr>
+
+        </div>
+        
+    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4">Update</button>
+</form>
+
+
+{% if form.errors %}
+<div class="alert alert-danger" role="alert">
+    <ul>
+        {% for field in form %}
+            {% if field.errors %}
+                <li>{{ field.label }}:
+                    <ul>
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock content %}

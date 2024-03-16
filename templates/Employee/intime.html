@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    {% if employee_detail %}
+        <b><p class="text-dark">Dear, {{employee_detail}}</p></b>
+    {% endif %}
+
+    {% if attendance_report %}
+        <p class="text-danger">{{attendance_report}}</p>
+    {% endif %}
+
+    {% if attendance_report_success %}
+        <p class="text-success">{{attendance_report_success}}</p>
+    {% endif %}
+
+    <a class="btn btn-primary" href="{% url 'Home_Page' %}" role="button">Go Back to Home Page</a>
+{% endblock content %}

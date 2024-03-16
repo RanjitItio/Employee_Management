@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">In Time</th>
+        <th scope="col">Out Time</th>
+        <th scope="col">Status</th>
+
+      </tr>
+    </thead>
+    <tbody>
+        {% for emp in all_employee_attendance %}
+        <tr>
+            <td scope="row">{{emp.id}}</td>
+            <td>{{emp.employee.first_name}} {{emp.employee.last_name}}</td>
+            <td>{{emp.date | date}}</td>
+            <td>{{emp.in_time}}</td>
+            <td>{{emp.out_time}}</td>
+            <td>
+                {% if emp.is_present %}
+                    <p class="text-success">Present</p>
+                {% else %}
+                    <p class="text-danger">Abscent</p>
+                {% endif %}
+            </td>
+        </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+{% endblock content %}
