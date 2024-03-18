@@ -13,3 +13,11 @@ Django Employee Management System with Session Authentication
 
 Open the url http://127.0.0.1:8000/ in your browser
 
+
+The Employee Management System allows users to perform various tasks related to employee management, including:
+
+   Adding new employees
+   Viewing employee details
+   Updating employee information
+   Deleting employee records
+
