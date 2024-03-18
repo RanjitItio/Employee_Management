@@ -6,8 +6,8 @@ Django Employee Management System with Session Authentication
     python -m venv virtualenv_name
     cd virtual_env
     Scripts\Activate
-    pip install -r requirements.txt
     git clone https://github.com/RanjitItio/Employee_Management.git
+    pip install -r requirements.txt
     cd Employee_Management
     python manage.py runserver
 
