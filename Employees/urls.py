@@ -3,6 +3,7 @@ from .import views
 
 
 
+
 urlpatterns = [
     path('emp-home/',views.EmployeeHomePage, name='Employee_Home_Page'),
     path('emp-detail/<int:pk>/',views.EmployeeDetailView.as_view(), name='Employee_Detail'),
@@ -13,6 +14,5 @@ urlpatterns = [
     path('outime-attendance/<int:pk>/',views.OutTimeAttendanceReportView, name='Outime_Attendance'),
     path('attendance-report/<int:pk>/',views.EmployeeAttendanceReportView, name='Attendance_Report'),
 ]
-
 
 

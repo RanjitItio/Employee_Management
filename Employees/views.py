@@ -1,12 +1,20 @@
+from typing import Any
+from django.http import HttpRequest
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from Employees.models import EmployeeDetail, EmployeeAttendance
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 from django.utils import timezone
 from datetime import datetime
+from django.contrib.auth.decorators import user_passes_test, login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
 
 
 
+
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
 def EmployeeHomePage(request):
     all_employee = EmployeeDetail.objects.all()
 
@@ -17,14 +25,23 @@ def EmployeeHomePage(request):
 
 
 
-class EmployeeDetailView(DetailView):
+class EmployeeDetailView(LoginRequiredMixin, DetailView):
     model = EmployeeDetail
     template_name = 'Employee/empdetail.html'
+
+    def test_func(self, request, *args, **kwargs):
+        employee = self.get_object()
+        
+        if self.request.user == employee:
+            return True
+        return  False
+    
+
 
 
 
 #Add two Mixins(LoginRequired and Userpasses Test)
-class EmployeeUpdateView(UpdateView):
+class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
     model = EmployeeDetail
     template_name = 'Employee/empupdate.html'
     fields = "__all__"
@@ -34,14 +51,17 @@ class EmployeeUpdateView(UpdateView):
     #     form.instance.author = self.request.user
     #     return super().form_valid(form)
 
-    # def test_func(self):
-    #     post = self.get_object()
-    #     if self.request.user == post.author:
-    #         return True
-    #     return False
+    def test_func(self):
+        employee = self.get_object()
+        if self.request.user == employee.employee:
+            return True
+        elif self.request.user.is_staff:
+            return True
+        return False
 
-from django.urls import reverse
-class EmployeeDataUpdateView(UpdateView):
+
+
+class EmployeeDataUpdateView(LoginRequiredMixin, UpdateView):
     model = EmployeeDetail
     template_name = 'Employee/empupdate.html'
     fields = "__all__"
@@ -52,17 +72,19 @@ class EmployeeDataUpdateView(UpdateView):
         return reverse('Employee_Detail', kwargs={'pk': id})
 
 
-class EmployeeDeleteView(DeleteView):
+
+class EmployeeDeleteView(LoginRequiredMixin, DeleteView):
     model = EmployeeDetail
     success_url = '/emp/emp-home'
     template_name = 'Employee/empdelete.html'
 
-    # def test_func(self):
-    #     user =  self.request.user
-    #     if user.is_staff:
-    #         return True
-    #     return False
-    
+    def test_func(self):
+        user =  self.request.user
+        if user.is_staff:
+            return True
+        return False
+
+
 
 
 class EmployeeCreateView(CreateView):
@@ -74,6 +96,7 @@ class EmployeeCreateView(CreateView):
     #     return super().form_valid(form)
 
 
+@login_required
 def IntimeAttendanceReportView(request):
     user = request.user
     attendance_report = None
@@ -86,7 +109,6 @@ def IntimeAttendanceReportView(request):
         except EmployeeDetail.DoesNotExist:
             employee_detail = "Not Registered as a Employee First Create One"
 
-        
         try:
             today = timezone.now().date()
             today_attendance = EmployeeAttendance.objects.filter(employee=employee_detail, date__date=today).first()
@@ -107,7 +129,8 @@ def IntimeAttendanceReportView(request):
     
     return render(request, 'Employee/intime.html', context)
     
-    
+
+
 
 def OutTimeAttendanceReportView(request, pk):
     user = request.user
@@ -150,3 +173,5 @@ def EmployeeAttendanceReportView(request, pk):
         'all_employee_attendance': all_employee_attendance
     }
     return render(request, 'Employee/attendance_report.html', context)
+
+
