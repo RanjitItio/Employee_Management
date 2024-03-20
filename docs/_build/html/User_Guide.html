@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>User Guide &#8212; EmployeeManagement 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Admin Journey" href="Admin_Guide.html" />
+    <link rel="prev" title="Features" href="Features.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="user-guide">
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Link to this heading">¶</a></h1>
+<section id="user-registration">
+<h2>User Registration<a class="headerlink" href="#user-registration" title="Link to this heading">¶</a></h2>
+<section id="registration-page">
+<h3>Registration Page<a class="headerlink" href="#registration-page" title="Link to this heading">¶</a></h3>
+<a class="reference internal image-reference" href="Images/Register.png"><img alt="Registration Page" class="align-center" src="Images/Register.png" style="width: 400px;" /></a>
+</section>
+<section id="coding-process">
+<h3>Coding Process<a class="headerlink" href="#coding-process" title="Link to this heading">¶</a></h3>
+<p>The <cite>RegisterView</cite> function is used to authenticate the user and login to the system.</p>
+<section id="parameters">
+<h4>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>request</cite> (HttpRequest): The incoming request object.</p></li>
+<li><p><cite>username</cite> (str): The username of the user.</p></li>
+<li><p><cite>email</cite> (str): The email of the user.</p></li>
+<li><p><cite>password</cite> (str): The password of the user.</p></li>
+<li><p><cite>confirm_password</cite> (str): The confirm password of the user.</p></li>
+</ul>
+</section>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>HttpResponse</cite>: An HTTP response object.</p></li>
+</ul>
+</section>
+<section id="redirect">
+<h4>Redirect<a class="headerlink" href="#redirect" title="Link to this heading">¶</a></h4>
+<p>Redirect to the Login Page.</p>
+</section>
+<section id="raises">
+<h4>Raises<a class="headerlink" href="#raises" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>Success_message</cite> (str): A success message to be displayed to the user after successful registration.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="user-login">
+<h2>User Login<a class="headerlink" href="#user-login" title="Link to this heading">¶</a></h2>
+<section id="login-page">
+<h3>Login Page<a class="headerlink" href="#login-page" title="Link to this heading">¶</a></h3>
+<a class="reference internal image-reference" href="Images/Login.png"><img alt="Login Page" src="Images/Login.png" style="width: 400px;" /></a>
+</section>
+<section id="id1">
+<h3>Coding Process<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<p>The <cite>LoginView</cite> function is used to authenticate the user and login to the system.</p>
+<section id="id2">
+<h4>Parameters<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>request</cite> (HttpRequest): The incoming request object.</p></li>
+<li><p><cite>email</cite> (str): The email of the user.</p></li>
+<li><p><cite>password</cite> (str): The password of the user.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h4>Returns<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>HttpResponse</cite>: An HTTP response object.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h4>Raises<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>error_message</cite> (str): An error message to be displayed to the user.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="update-user-profile">
+<h2>Update User Profile<a class="headerlink" href="#update-user-profile" title="Link to this heading">¶</a></h2>
+<section id="profile-update-page">
+<h3>Profile Update Page<a class="headerlink" href="#profile-update-page" title="Link to this heading">¶</a></h3>
+<a class="reference internal image-reference" href="Images/emp_update.png"><img alt="Profile Update Page" src="Images/emp_update.png" style="width: 400px;" /></a>
+</section>
+<section id="id5">
+<h3>Coding Process<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>The <cite>EmployeeUpdateView</cite> class is used for updating employee details.</p>
+<section id="attributes">
+<h4>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>model</cite>: The model class for which the view updates instances.</p></li>
+<li><p><cite>template_name</cite>: The name of the template to be used for rendering the view.</p></li>
+<li><p><cite>fields</cite>: The fields of the model to be included in the form.</p></li>
+<li><p><cite>success_url</cite>: The URL to redirect to after a successful update.</p></li>
+</ul>
+</section>
+<section id="methods">
+<h4>Methods<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>test_func</cite>: Checks if the current user has permission to update the employee details.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="profile-detail">
+<h2>Profile Detail<a class="headerlink" href="#profile-detail" title="Link to this heading">¶</a></h2>
+<section id="profile-detail-page">
+<h3>Profile Detail Page<a class="headerlink" href="#profile-detail-page" title="Link to this heading">¶</a></h3>
+<a class="reference internal image-reference" href="Images/emp_profile.png"><img alt="Profile Detail Page" src="Images/emp_profile.png" style="width: 400px;" /></a>
+</section>
+<section id="id6">
+<h3>Coding Process<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>The <cite>EmployeeDetailView</cite> class is used for displaying employee details.</p>
+<section id="id7">
+<h4>Attributes<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>model</cite>: The model class for which the view displays instances.</p></li>
+<li><p><cite>template_name</cite>: The name of the template to be used for rendering the view.</p></li>
+</ul>
+</section>
+<section id="id8">
+<h4>Methods<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>test_func</cite>: Checks if the current user has permission to view the employee details.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="update-in-time-attendance">
+<h2>Update In-Time Attendance<a class="headerlink" href="#update-in-time-attendance" title="Link to this heading">¶</a></h2>
+<section id="attendance-page">
+<h3>Attendance Page<a class="headerlink" href="#attendance-page" title="Link to this heading">¶</a></h3>
+<a class="reference internal image-reference" href="Images/attendance.png"><img alt="Attendance Page" src="Images/attendance.png" style="width: 400px;" /></a>
+</section>
+<section id="id9">
+<h3>Coding Process<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<p>The <cite>IntimeAttendanceReportView</cite> function is used for registering the in-time attendance of an employee.</p>
+<section id="id10">
+<h4>Parameters<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>request</cite>: The HTTP request object.</p></li>
+</ul>
+</section>
+<section id="id11">
+<h4>Returns<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>If the request method is POST and the attendance is successfully registered, renders the attendance report page.</p></li>
+<li><p>If the request method is GET, renders the in-time attendance form page.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="update-out-time-attendance">
+<h2>Update Out-Time Attendance<a class="headerlink" href="#update-out-time-attendance" title="Link to this heading">¶</a></h2>
+<section id="id12">
+<h3>Attendance Page<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<a class="reference internal image-reference" href="Images/attendance.png"><img alt="Attendance Page" src="Images/attendance.png" style="width: 400px;" /></a>
+</section>
+<section id="id13">
+<h3>Coding Process<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<p>The <cite>OutTimeAttendanceReportView</cite> function is used for registering the out-time attendance of an employee.</p>
+<section id="id14">
+<h4>Parameters<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>request</cite>: The HTTP request object.</p></li>
+<li><p><cite>pk</cite>: The primary key of the EmployeeAttendance object.</p></li>
+</ul>
+</section>
+<section id="id15">
+<h4>Returns<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>If the request method is POST and the out-time attendance is successfully registered, renders the leave time report page.</p></li>
+<li><p>If the request method is GET, renders the out-time attendance form page.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="change-password">
+<h2>Change Password<a class="headerlink" href="#change-password" title="Link to this heading">¶</a></h2>
+<section id="change-password-page">
+<h3>Change Password Page<a class="headerlink" href="#change-password-page" title="Link to this heading">¶</a></h3>
+<a class="reference internal image-reference" href="Images/change_password.png"><img alt="Change Password Page" src="Images/change_password.png" style="width: 400px;" /></a>
+</section>
+<section id="id16">
+<h3>Coding Process<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<p>The <cite>ChangePasswordView</cite> function is used for changing the password of the logged-in user.</p>
+<section id="id17">
+<h4>Parameters<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>request</cite>: The HTTP request object.</p></li>
+</ul>
+</section>
+<section id="id18">
+<h4>Returns<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>If the request method is POST and the password change is successful, redirects to the login page.</p></li>
+<li><p>If the request method is GET, renders the change password form page.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="resetting-forgotten-password">
+<h2>Resetting Forgotten Password<a class="headerlink" href="#resetting-forgotten-password" title="Link to this heading">¶</a></h2>
+<section id="steps-involved">
+<h3>Steps Involved<a class="headerlink" href="#steps-involved" title="Link to this heading">¶</a></h3>
+<ol class="arabic simple">
+<li><p>Fill the Email Address</p></li>
+<li><p>Email Notification</p></li>
+<li><p>Set New Password</p></li>
+<li><p>Success Message</p></li>
+</ol>
+</section>
+<section id="fill-the-email-address">
+<h3>Fill the Email Address<a class="headerlink" href="#fill-the-email-address" title="Link to this heading">¶</a></h3>
+<section id="email-address-filling-page">
+<h4>Email Address Filling Page<a class="headerlink" href="#email-address-filling-page" title="Link to this heading">¶</a></h4>
+<a class="reference internal image-reference" href="Images/email_input_forgot_password.png"><img alt="Email Address Filling Page" src="Images/email_input_forgot_password.png" style="width: 400px;" /></a>
+</section>
+</section>
+<section id="id19">
+<h3>Coding Process<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<p>The <cite>PasswordResetView</cite> function is used for initiating the password reset process.</p>
+<section id="id20">
+<h4>Parameters<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>request</cite>: The HTTP request object.</p></li>
+</ul>
+</section>
+<section id="id21">
+<h4>Returns<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>If the request method is POST and the email is registered, sends a password reset email and redirects to the password reset confirmation page.</p></li>
+<li><p>If the request method is GET, renders the password reset form page.</p></li>
+</ul>
+</section>
+<section id="email-notification">
+<h4>Email Notification<a class="headerlink" href="#email-notification" title="Link to this heading">¶</a></h4>
+</section>
+<section id="email-notification-message">
+<h4>Email Notification Message<a class="headerlink" href="#email-notification-message" title="Link to this heading">¶</a></h4>
+<p>An email will be sent to the provided email address containing a unique link to reset the password.</p>
+</section>
+</section>
+<section id="set-new-password">
+<h3>Set New Password<a class="headerlink" href="#set-new-password" title="Link to this heading">¶</a></h3>
+<section id="set-new-password-page">
+<h4>Set New Password Page<a class="headerlink" href="#set-new-password-page" title="Link to this heading">¶</a></h4>
+<a class="reference internal image-reference" href="Images/forgot_pass_reset.png"><img alt="Set New Password Page" src="Images/forgot_pass_reset.png" style="width: 400px;" /></a>
+</section>
+</section>
+<section id="id22">
+<h3>Coding Process<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<p>The <cite>PasswordResetDoneView</cite> function is used for completing the password reset process.</p>
+<section id="id23">
+<h4>Parameters<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><cite>request</cite>: The HTTP request object.</p></li>
+<li><p><cite>uid</cite>: The user ID encoded in base64.</p></li>
+<li><p><cite>token</cite>: The password reset token.</p></li>
+</ul>
+</section>
+<section id="id24">
+<h4>Returns<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>If the request method is POST and the password reset is successful, renders the password reset confirmation page.</p></li>
+<li><p>If the request method is GET, renders the password reset completion form page.</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">EmployeeManagement</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Project_Structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Features.html">Features</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#user-registration">User Registration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-login">User Login</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-user-profile">Update User Profile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#profile-detail">Profile Detail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-in-time-attendance">Update In-Time Attendance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-out-time-attendance">Update Out-Time Attendance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#change-password">Change Password</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resetting-forgotten-password">Resetting Forgotten Password</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Admin_Guide.html">Admin Journey</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Features.html" title="previous chapter">Features</a></li>
+      <li>Next: <a href="Admin_Guide.html" title="next chapter">Admin Journey</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Ranjit.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/User_Guide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

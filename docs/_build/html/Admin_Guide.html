@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Admin Journey &#8212; EmployeeManagement 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=2709fde1"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="User Guide" href="User_Guide.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="admin-journey">
+<h1>Admin Journey<a class="headerlink" href="#admin-journey" title="Link to this heading">¶</a></h1>
+<section id="admin-login-page">
+<h2>Admin Login Page<a class="headerlink" href="#admin-login-page" title="Link to this heading">¶</a></h2>
+<img alt="Admin Login Page" src="Images/admin_login.png" />
+<section id="coding-process">
+<h3>Coding Process:<a class="headerlink" href="#coding-process" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt>Description:</dt><dd><p>The login method is responsible for rendering the login form for the admin interface. It first checks if the user is already logged in and redirects to the admin index if so. Otherwise, it renders the login form using Django’s built-in authentication views. The admin login process in Django is facilitated by the <code class="docutils literal notranslate"><span class="pre">django.contrib.admin.sites.AdminSite.login</span></code> method. This method allows administrators to securely authenticate themselves and access the administrative interface for managing Django models.</p>
+</dd>
+<dt>Parameters:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">self</span></code>: The instance of the admin site.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">request</span></code>: The HTTP request object.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">extra_context</span></code>: Additional context data to be passed to the login template.</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt><dd><p>An HTTP response containing the rendered login form.</p>
+</dd>
+<dt>Dependencies:</dt><dd><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">never_cache</span></code> method decorator.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AdminAuthenticationForm</span></code> from <code class="docutils literal notranslate"><span class="pre">django.contrib.admin.forms</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LoginView</span></code> from <code class="docutils literal notranslate"><span class="pre">django.contrib.auth.views</span></code>.</p></li>
+</ul>
+</dd>
+<dt>Usage Notes:</dt><dd><p>This method is typically used within a custom admin class for a Django model.</p>
+</dd>
+<dt>Security Considerations:</dt><dd><p>Ensure that the <code class="docutils literal notranslate"><span class="pre">never_cache</span></code> decorator is applied to prevent caching of sensitive information.</p>
+</dd>
+</dl>
+</section>
+<section id="code-example">
+<h3>Code Example:<a class="headerlink" href="#code-example" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@admin</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">CustomUser</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">CustomUserAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Display the login form for the given HttpRequest.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_permission</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+            <span class="c1"># Already logged-in, redirect to admin index</span>
+            <span class="n">index_path</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;admin:index&quot;</span><span class="p">,</span> <span class="n">current_app</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">index_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">LoginView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(</span><span class="o">**</span><span class="n">defaults</span><span class="p">)(</span><span class="n">request</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="admin-home-page">
+<h2>Admin Home Page<a class="headerlink" href="#admin-home-page" title="Link to this heading">¶</a></h2>
+<img alt="Admin Home Page" src="Images/admin_homepage.png" />
+<section id="id1">
+<h3>Coding Process:<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@user_passes_test</span><span class="p">(</span><span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="n">u</span><span class="o">.</span><span class="n">is_staff</span><span class="p">,</span> <span class="n">login_url</span><span class="o">=</span><span class="s1">&#39;/login/&#39;</span><span class="p">)</span>
+<span class="nd">@login_required</span>
+<span class="k">def</span> <span class="nf">HomePage</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for rendering the home page.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        If the user is authenticated, renders the home page with employee details and attendance information.</span>
+<span class="sd">        If the user is not authenticated, renders the home page without any employee details or attendance information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+    <span class="n">employee_id</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">employee_detail</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">employee_attendance_id</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">:</span>
+        <span class="c1"># Retrieve employee details and attendance information</span>
+        <span class="c1"># ...</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">employee_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">employee_detail</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;employee_id&#39;</span><span class="p">:</span> <span class="n">employee_id</span><span class="p">,</span>
+        <span class="s1">&#39;employee_detail&#39;</span><span class="p">:</span> <span class="n">employee_detail</span><span class="p">,</span>
+        <span class="s1">&#39;employee_attendance_id&#39;</span><span class="p">:</span> <span class="n">employee_attendance_id</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Users/home.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="all-user-interface">
+<h2>All User Interface<a class="headerlink" href="#all-user-interface" title="Link to this heading">¶</a></h2>
+<img alt="All User Interface Page" src="Images/all_users.png" />
+<section id="id2">
+<h3>Coding Process:<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">changelist_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The &#39;change list&#39; admin view for this model.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the change list view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">django.contrib.admin.views.main</span> <span class="kn">import</span> <span class="n">ERROR_FLAG</span>
+
+    <span class="n">app_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">app_label</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_view_or_change_permission</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">PermissionDenied</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_changelist_instance</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">IncorrectLookupParameters</span><span class="p">:</span>
+        <span class="c1"># Wacky lookup parameters were given, so redirect to the main</span>
+        <span class="c1"># changelist page, without parameters, and pass an &#39;invalid=1&#39;</span>
+        <span class="c1"># parameter via the query string. If wacky parameters were given</span>
+        <span class="c1"># and the &#39;invalid=1&#39; parameter was already in the query string,</span>
+        <span class="c1"># something is screwed up with the database, so display an error</span>
+        <span class="c1"># page.</span>
+        <span class="k">if</span> <span class="n">ERROR_FLAG</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">SimpleTemplateResponse</span><span class="p">(</span>
+                <span class="s2">&quot;admin/invalid_setup.html&quot;</span><span class="p">,</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Database error&quot;</span><span class="p">),</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="n">ERROR_FLAG</span> <span class="o">+</span> <span class="s2">&quot;=1&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Rest of the code...</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="create-new-user-interface">
+<h2>Create New User Interface<a class="headerlink" href="#create-new-user-interface" title="Link to this heading">¶</a></h2>
+<section id="create-new-user-page">
+<h3>Create New User Page<a class="headerlink" href="#create-new-user-page" title="Link to this heading">¶</a></h3>
+<img alt="Create New User Page" src="Images/create_user.png" />
+</section>
+<section id="id3">
+<h3>Coding Process:<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@sensitive_post_parameters_m</span>
+<span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">add_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the add form for a new model instance.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        form_url: The URL to submit the form to (optional).</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the add view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">router</span><span class="o">.</span><span class="n">db_for_write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form_url</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="update-a-user-detail">
+<h3>Update a User Detail<a class="headerlink" href="#update-a-user-detail" title="Link to this heading">¶</a></h3>
+<img alt="Update Esisting User" src="Images/update_user.png" />
+</section>
+<section id="id4">
+<h3>Coding Process:<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">change_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">form_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the change form for an existing model instance.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        object_id: The ID of the model instance to be changed.</span>
+<span class="sd">        form_url: The URL to submit the form to (optional).</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the change view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeform_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">form_url</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="delete-user-interface">
+<h3>Delete User Interface<a class="headerlink" href="#delete-user-interface" title="Link to this heading">¶</a></h3>
+<img alt="Update Existing User" src="Images/delete_user.png" />
+</section>
+<section id="id5">
+<h3>Coding Process:<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">delete_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the delete confirmation page for a model instance.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        object_id: The ID of the model instance to be deleted.</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the delete view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">router</span><span class="o">.</span><span class="n">db_for_write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="all-employee-interface">
+<h2>All Employee Interface<a class="headerlink" href="#all-employee-interface" title="Link to this heading">¶</a></h2>
+<section id="all-employee-page">
+<h3>All Employee Page<a class="headerlink" href="#all-employee-page" title="Link to this heading">¶</a></h3>
+<img alt="All Employee" src="Images/all_emp.png" />
+</section>
+<section id="id6">
+<h3>Coding Process:<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">changelist_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The &#39;change list&#39; admin view for this model.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the change list view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">django.contrib.admin.views.main</span> <span class="kn">import</span> <span class="n">ERROR_FLAG</span>
+
+    <span class="n">app_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">app_label</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_view_or_change_permission</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">PermissionDenied</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_changelist_instance</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">IncorrectLookupParameters</span><span class="p">:</span>
+        <span class="c1"># Wacky lookup parameters were given, so redirect to the main</span>
+        <span class="c1"># changelist page, without parameters, and pass an &#39;invalid=1&#39;</span>
+        <span class="c1"># parameter via the query string. If wacky parameters were given</span>
+        <span class="c1"># and the &#39;invalid=1&#39; parameter was already in the query string,</span>
+        <span class="c1"># something is screwed up with the database, so display an error</span>
+        <span class="c1"># page.</span>
+        <span class="k">if</span> <span class="n">ERROR_FLAG</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">SimpleTemplateResponse</span><span class="p">(</span>
+                <span class="s2">&quot;admin/invalid_setup.html&quot;</span><span class="p">,</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Database error&quot;</span><span class="p">),</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="n">ERROR_FLAG</span> <span class="o">+</span> <span class="s2">&quot;=1&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Rest of the code...</span>
+</pre></div>
+</div>
+</section>
+<section id="create-new-employee">
+<h3>Create New Employee<a class="headerlink" href="#create-new-employee" title="Link to this heading">¶</a></h3>
+<img alt="Create New Employee Page" src="Images/create_emp.png" />
+</section>
+<section id="id7">
+<h3>Coding Process:<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@sensitive_post_parameters_m</span>
+<span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">add_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the add form for a new model instance.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        form_url: The URL to submit the form to (optional).</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the add view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">router</span><span class="o">.</span><span class="n">db_for_write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form_url</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="update-existing-employee">
+<h3>Update Existing Employee<a class="headerlink" href="#update-existing-employee" title="Link to this heading">¶</a></h3>
+<img alt="Update Existing employee" src="Images/update_emp.png" />
+</section>
+<section id="id8">
+<h3>Coding Process:<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">change_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">form_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the change form for an existing model instance.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        object_id: The ID of the model instance to be changed.</span>
+<span class="sd">        form_url: The URL to submit the form to (optional).</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the change view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeform_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">form_url</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="delete-an-employee">
+<h3>Delete an Employee<a class="headerlink" href="#delete-an-employee" title="Link to this heading">¶</a></h3>
+<img alt="Delete Existing employee" src="Images/delete_emp.png" />
+</section>
+<section id="id9">
+<h3>Coding Process:<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">delete_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the delete confirmation page for a model instance.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        object_id: The ID of the model instance to be deleted.</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the delete view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">router</span><span class="o">.</span><span class="n">db_for_write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="employee-attendance-interface">
+<h2>Employee Attendance Interface<a class="headerlink" href="#employee-attendance-interface" title="Link to this heading">¶</a></h2>
+<section id="employee-attendance-page">
+<h3>Employee Attendance Page:<a class="headerlink" href="#employee-attendance-page" title="Link to this heading">¶</a></h3>
+<img alt="Employee Attendance Page" src="Images/emp_attendance.png" />
+</section>
+<section id="id10">
+<h3>Coding Process:<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">changelist_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The &#39;change list&#39; admin view for this model.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the change list view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">django.contrib.admin.views.main</span> <span class="kn">import</span> <span class="n">ERROR_FLAG</span>
+
+    <span class="n">app_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">app_label</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_view_or_change_permission</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">PermissionDenied</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_changelist_instance</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">IncorrectLookupParameters</span><span class="p">:</span>
+        <span class="c1"># Wacky lookup parameters were given, so redirect to the main</span>
+        <span class="c1"># changelist page, without parameters, and pass an &#39;invalid=1&#39;</span>
+        <span class="c1"># parameter via the query string. If wacky parameters were given</span>
+        <span class="c1"># and the &#39;invalid=1&#39; parameter was already in the query string,</span>
+        <span class="c1"># something is screwed up with the database, so display an error</span>
+        <span class="c1"># page.</span>
+        <span class="k">if</span> <span class="n">ERROR_FLAG</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">SimpleTemplateResponse</span><span class="p">(</span>
+                <span class="s2">&quot;admin/invalid_setup.html&quot;</span><span class="p">,</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Database error&quot;</span><span class="p">),</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="n">ERROR_FLAG</span> <span class="o">+</span> <span class="s2">&quot;=1&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Rest of the code...</span>
+</pre></div>
+</div>
+</section>
+<section id="create-new-employee-attendance">
+<h3>CREATE NEW EMPLOYEE ATTENDANCE<a class="headerlink" href="#create-new-employee-attendance" title="Link to this heading">¶</a></h3>
+</section>
+<section id="create-attendance-page">
+<h3>Create Attendance Page:<a class="headerlink" href="#create-attendance-page" title="Link to this heading">¶</a></h3>
+<img alt="Create Attendance Page" src="Images/create_emp_attendance.png" />
+</section>
+<section id="id11">
+<h3>Coding Process:<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@sensitive_post_parameters_m</span>
+<span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">add_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the add form for a new model instance.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        form_url: The URL to submit the form to (optional).</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the add view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">router</span><span class="o">.</span><span class="n">db_for_write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form_url</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="update-employee-attendance-report">
+<h3>UPDATE EMPLOYEE ATTENDANCE REPORT<a class="headerlink" href="#update-employee-attendance-report" title="Link to this heading">¶</a></h3>
+</section>
+<section id="update-attendance-report-page">
+<h3>Update Attendance Report Page:<a class="headerlink" href="#update-attendance-report-page" title="Link to this heading">¶</a></h3>
+<img alt="Update Attendance Report Page" src="Images/update_emp_attendance.png" />
+</section>
+<section id="id12">
+<h3>Coding Process:<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">change_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">form_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the change form for an existing model instance.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        object_id: The ID of the model instance to be changed.</span>
+<span class="sd">        form_url: The URL to submit the form to (optional).</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the change view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeform_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">form_url</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="delete-employee-attendance-report">
+<h3>DELETE EMPLOYEE ATTENDANCE REPORT<a class="headerlink" href="#delete-employee-attendance-report" title="Link to this heading">¶</a></h3>
+</section>
+<section id="delete-attendance-report-page">
+<h3>Delete Attendance Report Page:<a class="headerlink" href="#delete-attendance-report-page" title="Link to this heading">¶</a></h3>
+<img alt="Delete Attendance Report Page" src="Images/delete_emp_attendance.png" />
+</section>
+<section id="id13">
+<h3>Coding Process:<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">delete_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  View for displaying the delete confirmation page for a model instance.</span>
+<span class="sd">   Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        object_id: The ID of the model instance to be deleted.</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the delete view.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">router</span><span class="o">.</span><span class="n">db_for_write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="all-department-section">
+<h2>All Department Section<a class="headerlink" href="#all-department-section" title="Link to this heading">¶</a></h2>
+<section id="all-department-page">
+<h3>All Department Page:<a class="headerlink" href="#all-department-page" title="Link to this heading">¶</a></h3>
+<img alt="All Department Page" src="Images/all_department.png" />
+</section>
+<section id="id14">
+<h3>Coding Process:<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">changelist_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   The &#39;change list&#39; admin view for this model.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the change list view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">django.contrib.admin.views.main</span> <span class="kn">import</span> <span class="n">ERROR_FLAG</span>
+
+    <span class="n">app_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">app_label</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_view_or_change_permission</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">PermissionDenied</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">cl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_changelist_instance</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">IncorrectLookupParameters</span><span class="p">:</span>
+        <span class="c1"># Wacky lookup parameters were given, so redirect to the main</span>
+        <span class="c1"># changelist page, without parameters, and pass an &#39;invalid=1&#39;</span>
+        <span class="c1"># parameter via the query string. If wacky parameters were given</span>
+        <span class="c1"># and the &#39;invalid=1&#39; parameter was already in the query string,</span>
+        <span class="c1"># something is screwed up with the database, so display an error</span>
+        <span class="c1"># page.</span>
+        <span class="k">if</span> <span class="n">ERROR_FLAG</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">SimpleTemplateResponse</span><span class="p">(</span>
+                <span class="s2">&quot;admin/invalid_setup.html&quot;</span><span class="p">,</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Database error&quot;</span><span class="p">),</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="n">ERROR_FLAG</span> <span class="o">+</span> <span class="s2">&quot;=1&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Rest of the code...</span>
+</pre></div>
+</div>
+</section>
+<section id="create-new-department">
+<h3>CREATE NEW DEPARTMENT<a class="headerlink" href="#create-new-department" title="Link to this heading">¶</a></h3>
+</section>
+<section id="create-new-department-page">
+<h3>Create New Department Page:<a class="headerlink" href="#create-new-department-page" title="Link to this heading">¶</a></h3>
+<img alt="Create New Department Page" src="Images/create_department.png" />
+</section>
+<section id="id15">
+<h3>Coding Process:<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@sensitive_post_parameters_m</span>
+<span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">add_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the add form for a new model instance.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        form_url: The URL to submit the form to (optional).</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the add view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">router</span><span class="o">.</span><span class="n">db_for_write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form_url</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="update-an-existing-department">
+<h3>UPDATE AN EXISTING DEPARTMENT<a class="headerlink" href="#update-an-existing-department" title="Link to this heading">¶</a></h3>
+</section>
+<section id="update-department-page">
+<h3>Update Department Page:<a class="headerlink" href="#update-department-page" title="Link to this heading">¶</a></h3>
+<img alt="Update Department Page" src="Images/update_department.png" />
+</section>
+<section id="id16">
+<h3>Coding Process:<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">change_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">form_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    View for displaying the change form for an existing model instance.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        object_id: The ID of the model instance to be changed.</span>
+<span class="sd">        form_url: The URL to submit the form to (optional).</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">    The rendered template response for the change view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">changeform_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">form_url</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="delete-any-department">
+<h2>Delete Any Department<a class="headerlink" href="#delete-any-department" title="Link to this heading">¶</a></h2>
+<section id="delete-department-page">
+<h3>Delete Department Page:<a class="headerlink" href="#delete-department-page" title="Link to this heading">¶</a></h3>
+<img alt="Delete Department Page" src="Images/delete_department.png" />
+</section>
+<section id="id17">
+<h3>Coding Process:<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@csrf_protect_m</span>
+<span class="k">def</span> <span class="nf">delete_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">   </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  View for displaying the delete confirmation page for a model instance.</span>
+<span class="sd">   Args:</span>
+<span class="sd">        request: The HTTP request object.</span>
+<span class="sd">        object_id: The ID of the model instance to be deleted.</span>
+<span class="sd">        extra_context: Additional context data (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The rendered template response for the delete view.</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="n">router</span><span class="o">.</span><span class="n">db_for_write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delete_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">EmployeeManagement</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Project_Structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Features.html">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="User_Guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Admin Journey</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#admin-login-page">Admin Login Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#admin-home-page">Admin Home Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#all-user-interface">All User Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-new-user-interface">Create New User Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#all-employee-interface">All Employee Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#employee-attendance-interface">Employee Attendance Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#all-department-section">All Department Section</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#delete-any-department">Delete Any Department</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="User_Guide.html" title="previous chapter">User Guide</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Ranjit.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/Admin_Guide.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

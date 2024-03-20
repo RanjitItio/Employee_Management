@@ -1,8 +1,4 @@
-from typing import Any
-from django.http import HttpRequest
-from django.http.response import HttpResponse
 from django.shortcuts import render
-from django.views import View
 from Employees.models import EmployeeDetail, EmployeeAttendance
 from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
 from django.utils import timezone
@@ -46,7 +42,7 @@ class EmployeeUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'Employee/empupdate.html'
     fields = "__all__"
     success_url = '/emp/emp-home'
-    
+
     # def form_valid(self, form):
     #     form.instance.author = self.request.user
     #     return super().form_valid(form)
@@ -132,14 +128,13 @@ def IntimeAttendanceReportView(request):
 
 
 
+
 def OutTimeAttendanceReportView(request, pk):
-    user = request.user
+    # user = request.user
     leavetime_report = None
     leavetime_report_success = None
     
-    
     if request.method == "POST":
-
         try:
             employee_attendance = EmployeeAttendance.objects.get(pk=pk) 
             if not employee_attendance.out_time:

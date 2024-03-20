@@ -12,11 +12,11 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_bytes, DjangoUnicodeDecodeError
 from users.utils import Util
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 
-
-
-
+@user_passes_test(lambda u: u.is_staff, login_url='/login/')
+@login_required
 def HomePage(request):
     user = request.user
     employee_id = None
@@ -55,12 +55,11 @@ def HomePage(request):
 
 def RegisterView(request):
     if request.method == 'POST':
-
         username            = request.POST.get('username')
         email               = request.POST.get('email')
         password            = request.POST.get('password')
         confirm_password    = request.POST.get('confirm_password')
-        
+
         if not (username and email and password and confirm_password):
             messages.error(request, 'Please fill in all the fields.')
             return redirect('Register')
@@ -94,7 +93,7 @@ def LoginView(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-
+        
         if email and password:
             user = authenticate(request, email=email, password=password)
             
@@ -146,7 +145,7 @@ def ChangePasswordView(request):
 
 
 
-
+@login_required
 def PasswordResetView(request):
 
     if request.method == "POST":
@@ -173,6 +172,7 @@ def PasswordResetView(request):
             messages.error(request, "Email is not registered")
 
     return render(request, 'Users/password_reset.html')
+
 
 
 
