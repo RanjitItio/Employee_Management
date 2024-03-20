@@ -182,6 +182,7 @@ def PasswordResetConfirmView(request):
 
 
 def PasswordResetDoneView(request, uid, token):
+    # sourcery skip: avoid-builtin-shadow
 
     if request.method == "POST":
         password = request.POST.get("password")

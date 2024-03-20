@@ -1,4 +1,6 @@
-from socket import gethostname
+# from docx2pdf import convert
 
-print( gethostname())
+# # convert("GFG.docx")
+
+# convert("docs/Employee_Management_Doc.docx", "docs/Mine.pdf")
 

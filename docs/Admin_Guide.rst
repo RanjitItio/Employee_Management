@@ -52,7 +52,7 @@ Code Example:
 
 
 Admin Home Page
-----------------
+------------------
 
 .. image:: /Images/admin_homepage.png
    :alt: Admin Home Page
@@ -95,8 +95,8 @@ Coding Process:
             return render(request, 'Users/home.html', context)
 
 
-All User Interface
--------------------
+**All User Interface**
+----------------------
 
 .. image:: /Images/all_users.png
    :alt: All User Interface Page
@@ -143,8 +143,8 @@ Coding Process:
             # Rest of the code...
 
 
-Create New User Interface
--------------------------
+**Create New User Interface**
+-----------------------------
 
 Create New User Page
 ~~~~~~~~~~~~~~~~~~~~
@@ -174,8 +174,8 @@ Coding Process:
             return self._add_view(request, form_url, extra_context)
 
 
-Update a User Detail
-~~~~~~~~~~~~~~~~~~~~
+**Update a User Detail**
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/update_user.png
    :alt: Update Esisting User
@@ -200,8 +200,8 @@ Coding Process:
         return self.changeform_view(request, object_id, form_url, extra_context)
 
 
-Delete User Interface
-~~~~~~~~~~~~~~~~~~~~~
+**Delete User Interface**
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/delete_user.png
    :alt: Update Existing User
@@ -228,11 +228,11 @@ Coding Process:
             return self._delete_view(request, object_id, extra_context)
 
 
-All Employee Interface
------------------------
+**All Employee Interface**
+--------------------------
 
 All Employee Page
-~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/all_emp.png
    :alt: All Employee
@@ -279,8 +279,8 @@ Coding Process:
         # Rest of the code...
 
 
-Create New Employee
-~~~~~~~~~~~~~~~~~~~~
+**Create New Employee**
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/create_emp.png
    :alt: Create New Employee Page
@@ -307,8 +307,8 @@ Coding Process:
             return self._add_view(request, form_url, extra_context)
 
 
-Update Existing Employee
-~~~~~~~~~~~~~~~~~~~~~~~~~
+**Update Existing Employee**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/update_emp.png
    :alt: Update Existing employee
@@ -334,8 +334,8 @@ Coding Process:
         return self.changeform_view(request, object_id, form_url, extra_context)
 
 
-Delete an Employee
-~~~~~~~~~~~~~~~~~~
+**Delete an Employee**
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/delete_emp.png
    :alt: Delete Existing employee
@@ -363,11 +363,11 @@ Coding Process:
 
 
 
-Employee Attendance Interface
------------------------------
+**Employee Attendance Interface**
+---------------------------------
 
 Employee Attendance Page:
-~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/emp_attendance.png
    :alt: Employee Attendance Page
@@ -414,8 +414,8 @@ Coding Process:
         # Rest of the code...
 
 
-CREATE NEW EMPLOYEE ATTENDANCE
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**CREATE NEW EMPLOYEE ATTENDANCE**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Create Attendance Page:
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -445,8 +445,8 @@ Coding Process:
             return self._add_view(request, form_url, extra_context)
 
 
-UPDATE EMPLOYEE ATTENDANCE REPORT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**UPDATE EMPLOYEE ATTENDANCE REPORT**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Update Attendance Report Page:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -474,11 +474,11 @@ Coding Process:
         return self.changeform_view(request, object_id, form_url, extra_context)
 
 
-DELETE EMPLOYEE ATTENDANCE REPORT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**DELETE EMPLOYEE ATTENDANCE REPORT**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Delete Attendance Report Page:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/delete_emp_attendance.png
    :alt: Delete Attendance Report Page
@@ -504,11 +504,11 @@ Coding Process:
             return self._delete_view(request, object_id, extra_context)
 
 
-All Department Section
-----------------------
+**All Department Section**
+--------------------------
 
 All Department Page:
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/all_department.png
    :alt: All Department Page
@@ -555,11 +555,11 @@ Coding Process:
         # Rest of the code...
 
 
-CREATE NEW DEPARTMENT
-~~~~~~~~~~~~~~~~~~~~~
+**CREATE NEW DEPARTMENT**
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Create New Department Page:
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/create_department.png
    :alt: Create New Department Page
@@ -586,8 +586,8 @@ Coding Process:
             return self._add_view(request, form_url, extra_context)
 
 
-UPDATE AN EXISTING DEPARTMENT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**UPDATE AN EXISTING DEPARTMENT**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Update Department Page:
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -613,11 +613,11 @@ Coding Process:
         """
         return self.changeform_view(request, object_id, form_url, extra_context)
 
-Delete Any Department
-----------------------
+**Delete Any Department**
+-------------------------
 
 Delete Department Page:
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: /Images/delete_department.png
    :alt: Delete Department Page

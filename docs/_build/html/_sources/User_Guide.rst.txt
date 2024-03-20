@@ -1,8 +1,8 @@
-User Guide
-==========
+**User Guide**
+==============
 
-User Registration
-******************
+**User Registration**
+**********************
 
 Registration Page
 ------------------
@@ -41,9 +41,25 @@ Raises
 
 - `Success_message` (str): A success message to be displayed to the user after successful registration.
 
+ERROR:
+~~~~~~~~~
+   - 1: Error 204 No content
+   - 2: Mismatch password
+   - 3: Error 403 Already Exists
+   - 4: Form validation Error
+   - 5: Csrf verification failed
 
-User Login
-**********
+ERROR HANDLING:
+~~~~~~~~~~~~~~~~~~~~~
+   - 1: Fill in all the required fields
+   - 2: Make sure to match both password fields 
+   - 3: Change the username and email if already exists or try to login
+   - 4: Make sure to put a proper email format and password should contain Capital Letter, Small Letter, Special characters, Numeric value and minimum length of the password should be greater than 8
+   - 5: Reload the page or try in another browser
+
+
+**User Login**
+**************
 
 Login Page
 ----------
@@ -74,8 +90,23 @@ Raises
 
 - `error_message` (str): An error message to be displayed to the user.
 
+ERROR:
+~~~~~~~~~~~~
+     - 1: Error 204 No Content
+     - 2: Invalid email or Password
+     - 3: Authentication Failure
+     - 4: Session management error
 
-Update User Profile
+
+ERROR HANDLING:
+~~~~~~~~~~~~~~~~~~~~~
+   - 1: Make sure to provide valid email and password
+   - 2: Message will appear as Invalid email and password please recheck and try again
+   - 3: Try again later or contact for support for issue
+   - 4: Try to Login again to establish new connection
+
+
+**Update User Profile**
 ********************
 
 Profile Update Page
@@ -103,8 +134,24 @@ Methods
 
 - `test_func`: Checks if the current user has permission to update the employee details.
 
-Profile Detail
-**************
+ERROR:
+~~~~~~~~~~~~
+     - 1: Error 401 Unauthorized Access
+     - 2: Error 404 Not found
+     - 3: Error 403 Forbidden
+     - 4: Form validation error
+
+
+ERROR HANDLING:
+~~~~~~~~~~~~~~~~
+   - 1: Make sure to Authenticate (Login) before accessing the page.
+   - 2: Make sure to register as an Employee
+   - 3: Accessed data must be of logged in user
+   - 4: Provide proper data type in the field
+
+
+**Profile Detail**
+******************
 
 Profile Detail Page
 --------------------
@@ -129,8 +176,22 @@ Methods
 
 - `test_func`: Checks if the current user has permission to view the employee details.
 
-Update In-Time Attendance
-*************************
+
+ERROR:
+~~~~~~~~~~~~
+     - 1: Error 401 Unauthorized Access
+     - 2: Error 404 Not Found
+     - 3: Error 403 Permission Denied
+
+
+ERROR HANDLING:
+~~~~~~~~~~~~~~~~
+   - 1: Make sure to authenticate before accessing the page
+   - 2: Must be registered as an Employee
+   - 3: Accessing data must be of logged in user cannot view other Employee records
+
+**Update In-Time Attendance**
+*****************************
 
 Attendance Page
 ---------------
@@ -155,8 +216,23 @@ Returns
 - If the request method is POST and the attendance is successfully registered, renders the attendance report page.
 - If the request method is GET, renders the in-time attendance form page.
 
-Update Out-Time Attendance
-**************************
+
+ERROR:
+~~~~~~~~~~~~
+     - 1: Error 403 Forbidden
+     - 2: Attendance already registered for the day
+     - 3: Error 500 Internal server Error
+
+
+ERROR HANDLING:
+~~~~~~~~~~~~~~~~
+   - 1: Make sure to register as an Employee
+   - 2: Once created cannot re register again for any query contact Admin department
+   - 3: Please try again later
+
+
+**Update Out-Time Attendance**
+******************************
 
 Attendance Page
 ---------------
@@ -182,8 +258,24 @@ Returns
 - If the request method is POST and the out-time attendance is successfully registered, renders the leave time report page.
 - If the request method is GET, renders the out-time attendance form page.
 
-Change Password
-***************
+
+ERROR:
+~~~~~~~~~~~~
+     - 1: Error 400 Bad request
+     - 2: Error 403 Permission Denied
+     - 3: Error 500 Internal server Error
+
+
+ERROR HANDLING:
+~~~~~~~~~~~~~~~~
+   - 1: Provide correct primary key of a Employee Attendance record
+   - 2: Cannot re assign Attendance once registered
+   - 3: Please try again later
+
+
+
+**Change Password**
+********************
 
 Change Password Page
 ---------------------
@@ -208,8 +300,22 @@ Returns
 - If the request method is POST and the password change is successful, redirects to the login page.
 - If the request method is GET, renders the change password form page.
 
-Resetting Forgotten Password
-*****************************
+ERROR:
+~~~~~~~~~~~~
+     - 1: Invalid Credential
+     - 2: Session update failure
+     - 3: Invalid data type
+
+
+ERROR HANDLING:
+~~~~~~~~~~~~~~~~
+   - 1: Make sure the old password is correct and password and confirm password field should match
+   - 2: Reload the page and try again
+   - 3: Password format must be according to the given instruction
+
+
+**Resetting Forgotten Password**
+*********************************
 
 Steps Involved
 --------------
@@ -280,3 +386,20 @@ Returns
 
 - If the request method is POST and the password reset is successful, renders the password reset confirmation page.
 - If the request method is GET, renders the password reset completion form page.
+
+
+
+ERROR:
+~~~~~~~~~~~~
+     - 1: Error 204 No Content
+     - 2: Error 404 Not Found
+     - 3: Token Generation Failure
+     - 4: Mail sent failure
+
+
+ERROR HANDLING:
+~~~~~~~~~~~~~~~~
+   - 1: Provide proper email in the input field
+   - 2: Register the email address before proceeding to next step
+   - 3: Retry again
+   - 3: Try after some time
